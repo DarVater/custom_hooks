@@ -1,18 +1,25 @@
-import useInput from "./hooks/useInput";
-import Hover from "./components/Hover";
-import List from "./components/List";
+import {useState} from "react";
+import useDebounce from "./hooks/useDebounce";
 
 function App() {
-    const username = useInput('')
-    const password = useInput('')
+    const [value, setValue] = useState('')
+    const debouncedSearch = useDebounce(search, 500)
+    function search(query) {
+        fetch(`https://jsonplaceholder.typicode.com/todos?query=${query}`)
+            .then(response => response.json())
+            .then(json => {
+                console.log(json)
+            })
+    }
 
-   return (
+    const onChange = e => {
+        setValue(e.target.value)
+        debouncedSearch(e.target.value)
+    }
+
+    return (
     <div >
-        <input {...username} type="text" placeholder='Username'/>
-        <input {...password} type="password" placeholder='Password'/>
-        <button onClick={() => {console.log(username.value, password.value)}}>Принт в лог</button>
-        <Hover/>
-        <List/>
+        <input type="text" value={value} onChange={onChange}/>
     </div>
   );
 }
