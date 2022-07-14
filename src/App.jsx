@@ -1,4 +1,5 @@
 import useInput from "./hooks/useInput";
+import Hover from "./components/Hover";
 
 function App() {
     const username = useInput('')
@@ -6,9 +7,10 @@ function App() {
 
    return (
     <div >
-      <input {...username} type="text" placeholder='Username'/>
-      <input {...password} type="password" placeholder='Password'/>
-      <button onClick={() => {console.log(username.value, password.value)}}>Принт в лог</button>
+        <input {...username} type="text" placeholder='Username'/>
+        <input {...password} type="password" placeholder='Password'/>
+        <button onClick={() => {console.log(username.value, password.value)}}>Принт в лог</button>
+        <Hover/>
     </div>
   );
 }
